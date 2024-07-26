@@ -9,6 +9,7 @@ public class PlayerFire : MonoBehaviour
     public float throwPower = 15f;
     ParticleSystem ps;
     public GameObject bulletEffect;
+    public int weaponPower = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,14 +32,24 @@ public class PlayerFire : MonoBehaviour
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit hitInfo = new RaycastHit();
             Debug.DrawRay(transform.position, transform.forward, Color.red);
+            
             if(Physics.Raycast(ray,out hitInfo))
             {
-                bulletEffect.transform.position = hitInfo.point;
-                bulletEffect.transform.forward = hitInfo.point;
+                if(hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                {
+                    EnemyFSM eFSM = hitInfo.transform.GetComponent<EnemyFSM>();
+                    eFSM.HitEnemy(weaponPower);
+                }
+                else
+                {
+                    bulletEffect.transform.position = hitInfo.point;
+                    bulletEffect.transform.forward = hitInfo.point;
+
+                    ps.Play();
+                }
                 
-                ps.Play();
             }
         }
-        
+       
     }
 }
