@@ -55,8 +55,6 @@ public class GameManager : MonoBehaviour
     {
         if(player.hp <= 0)
         {
-            
-            StopAllCoroutines();
 
             gameLabel.SetActive(true);
 
