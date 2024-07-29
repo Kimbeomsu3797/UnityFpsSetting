@@ -10,10 +10,12 @@ public class PlayerFire : MonoBehaviour
     ParticleSystem ps;
     public GameObject bulletEffect;
     public int weaponPower = 5;
+    Animator anim;
     // Start is called before the first frame update
     void Start()
     {
         ps = bulletEffect.GetComponent<ParticleSystem>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -32,7 +34,10 @@ public class PlayerFire : MonoBehaviour
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
             RaycastHit hitInfo = new RaycastHit();
             Debug.DrawRay(transform.position, transform.forward, Color.red);
-            
+            if(anim.GetFloat("MoveMotion") == 0)
+            {
+                anim.SetTrigger("Attack");
+            }
             if(Physics.Raycast(ray,out hitInfo))
             {
                 if(hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Enemy"))

@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     {
         if(player.hp <= 0)
         {
+            player.GetComponentInChildren<Animator>().SetFloat("MoveMotion", 0f);
 
             gameLabel.SetActive(true);
 
@@ -64,5 +65,6 @@ public class GameManager : MonoBehaviour
 
             gState = GameState.GameOver;
         }
+        
     }
 }

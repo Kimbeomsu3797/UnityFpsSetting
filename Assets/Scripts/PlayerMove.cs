@@ -18,11 +18,13 @@ public class PlayerMove : MonoBehaviour
     int maxHp = 20;
     public Slider hpSlider;
     public GameObject hitEffect;
+    Animator anim;
     // Start is called before the first frame update
     void Start()
     {
         cc = GetComponent<CharacterController>();
-       
+
+        anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -38,7 +40,7 @@ public class PlayerMove : MonoBehaviour
         dir = dir.normalized;
         dir = Camera.main.transform.TransformDirection(dir);
         transform.position += dir * playerSpeed * Time.deltaTime;
-        
+        anim.SetFloat("MoveMotion", dir.magnitude);
         //transform.Translate(new Vector3(z*playerSpeed*Time.deltaTime, 0, h * playerSpeed * Time.deltaTime));
         if(isJumping && cc.collisionFlags == CollisionFlags.Below)
         {
