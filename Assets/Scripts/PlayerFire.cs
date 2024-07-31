@@ -25,6 +25,15 @@ public class PlayerFire : MonoBehaviour
     public Text gameState;
     public Text weaponMode;
     public GameObject[] eff_Flash;
+    //public GameObject[] WeaponImage;
+    //public GameObject[] SubWeaponImage;
+    public GameObject weapon01;
+    public GameObject weapon02;
+    public GameObject crosshair01;
+    public GameObject crosshair02;
+    public GameObject weapon01_R;
+    public GameObject weapon02_R;
+    public GameObject sniper_Zoom;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,12 +68,16 @@ public class PlayerFire : MonoBehaviour
                     {
                         Camera.main.fieldOfView = 15f;
                         ZoomMode = true;
+                        sniper_Zoom.SetActive(true);
+                        crosshair02.SetActive(false);
                     }
                     //그렇지 않으면 카메라를 원래 상태로 되돌리고 줌 모드 상태를 해제
                     else
                     {
                         Camera.main.fieldOfView = 60f;
                         ZoomMode = false;
+                        sniper_Zoom.SetActive(false);
+                        crosshair02.SetActive(true);
                     }
                     
                     break;
@@ -105,13 +118,34 @@ public class PlayerFire : MonoBehaviour
             //카메라의 화면을 다시 원래대로 돌려준다.
             Camera.main.fieldOfView = 60f;
             weaponMode.text = "Normal Weapon";
-           
+            //WeaponImage[1].SetActive(false);
+            //SubWeaponImage[1].SetActive(false);
+            //WeaponImage[0].SetActive(true);
+            //SubWeaponImage[0].SetActive(true);
+            weapon01.SetActive(true);
+            weapon02.SetActive(false);
+            crosshair01.SetActive(true);
+            crosshair02.SetActive(false);
+            weapon01_R.SetActive(true);
+            weapon02_R.SetActive(false);
+            sniper_Zoom.SetActive(false);
         }
         //만일 키보드의 숫자 2번 입력을 받으면, 무기 모드를 스나이퍼 모드로 변경한다.
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             wMode = WeaponMode.Sniper;
             weaponMode.text = "Sniper Weapon";
+            weaponMode.text = "Normal Weapon";
+            //WeaponImage[0].SetActive(false);
+            //SubWeaponImage[0].SetActive(false);
+            //WeaponImage[1].SetActive(true);
+            //SubWeaponImage[1].SetActive(true);
+            weapon01.SetActive(false);
+            weapon02.SetActive(true);
+            crosshair01.SetActive(false);
+            crosshair02.SetActive(true);
+            weapon01_R.SetActive(false);
+            weapon02_R.SetActive(true);
         }
         
     }
